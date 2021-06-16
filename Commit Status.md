@@ -1,5 +1,5 @@
 # Commit Purpose
- Database Creation and existence verification
+ Table Creation and existence verification
 
 ## Operation
 
@@ -7,18 +7,15 @@
 
     flask run
 
-Call the route *"/"* and verify that the database ***apifut_database*** exists 
+Call the route *"/"* and verify that the table ***fut21information*** exists 
 
 ## Changes made compared to the previous one
-- Database Creation 
-- Database existence verification
+- Table `fut21information` Creation 
+- Table `fut21information` existence verification
 
 ## Files and Folders
 ### Modified files and folders
 #### - app.py
-- Route *"/"* defined 
-- Connection established to MySQL server
-- *tempdb* Database removal as it was not important
-- Drop database syntax test
-- Database existence verification
+- Table existence verification
+- Connection to the database `apifut_database`
 
