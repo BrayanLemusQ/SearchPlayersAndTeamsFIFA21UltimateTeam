@@ -19,6 +19,8 @@ query = "DROP TABLE IF EXISTS fut21information"
 cursor.execute(query)
 query = "CREATE TABLE IF NOT EXISTS fut21information (Id int unsigned NOT NULL AUTO_INCREMENT, PlayerName char(30) DEFAULT NULL, PlayerCommonName char(30) DEFAULT NULL, Position char(30) DEFAULT NULL, Nationality char(20) DEFAULT NULL, Team char(30) DEFAULT NULL, Page int DEFAULT 1, PRIMARY KEY(Id))"
 cursor.execute(query)
+query = "CREATE TABLE IF NOT EXISTS teamplayerstable (Id int unsigned NOT NULL AUTO_INCREMENT, PlayerName char(30) DEFAULT NULL, PlayerCommonName char(30) DEFAULT NULL, Position char(30) DEFAULT NULL, Nationality char(20) DEFAULT NULL, Team char(30) DEFAULT NULL, Page int DEFAULT 1, PRIMARY KEY(Id))"
+cursor.execute(query)
 cursor.close()
 
     

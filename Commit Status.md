@@ -1,5 +1,5 @@
 # Commit Purpose
-Reading information from API Fut FIFA 21 Ultimate Team and store the information into the `apifut_database` 
+Read the players from a specific team and send them as a response. Any query creates a new table where the players that correspond to that specific team are saved into multiple pages, each pages contains maximum 10 items.
 
 ## Operation
 
@@ -9,15 +9,23 @@ Reading information from API Fut FIFA 21 Ultimate Team and store the information
 
 
 ## Changes made compared to the previous one
-- Installation of HTTP Library `Request`
-- Installation of `jsonify` python script
-- The code dedicated to the definition of the route `"/"` was moved from `app.py` to a new file named `config_database.py`
+- Creation of `teamplayerstable` table to store the players that belongs to the consulted team
+- Definition of `"/team` route to consult the players that belongs to a specific team
 
 ## Files and Folders
-### Created files and folders
+### Modified files and folders
 #### - config_database.py
-- Addition of `PlayerCommonName` column to the `fut21information` given that some players comes with a commmon name and theyre full name, so this data is stored to be able to search later either by the full name or by the common name.
+- Creation of `teamplayerstable` table with the same columns of `fut21information` to store the players that belongs to the consulted team
 
 #### - routes.py
-- `writeDataToTable` function is created to store a single data into the `fut21information` table. The function receive a list type data that must contains `playername`, `common_playername`, `player_position`, `player_nationality`, `player_club`, `page`
-- `readInformation` function is created to read the information from API Fut FIFA 21 Ultimate Team, this function reads the API to adquire the amount of pages, and make the request to all the pages.
+- `writeDataToTable` function was changed so it can store information either in the `fut21information` table or `teamplayerstable` table.
+- `CreatePlayersTableByTeam` function was created to store the information of each player that belongs to the consulted team, in addition depending of the amount of players, the information is saved with a page number that increments every time that 10 players has been stored in the page. This function deletes the `teamplayerstable` table everytime is called to store new data and ignore the above data.
+  - The `function` receive a `string` data that must contain the name of the team consulted
+  - The `function` returns a `boolean` data that indicates if the team exist or not.
+- `FindPlayersByTeam` function was created to explore the `teamplayerstable` table and select the players according to a specific page number.
+    - The function receive a `string` data that must contain the name of the team consulted and an `integer` data that must contain the page number consulted
+    - This `function` returns a `list` with the founded players according to the data received 
+  - `FindMaxValue` function was created to find the maximun number either in the `Id` Column or the `Page` Column in the table `teamplayerstable`
+    - The `function` receive a `string` that must contain the name of the column where the maximun is requested
+    - The `function` returns an `integer` with the maximum value stored
+  - `"/team"` route was created to explore the information readed from the API FIFA 21 Ultimate Team and respond the players that belongs to a specific team.
