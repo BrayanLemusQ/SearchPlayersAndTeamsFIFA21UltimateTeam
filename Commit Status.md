@@ -1,5 +1,5 @@
 # Commit Purpose
-This commit purpose is to add the functionality of ordering the response information ascending or descending by the time a search by name is executed. In addition the `readInformation` function was modified so the API can read all the pages in API FUT 21
+This commit purpose is to explain the functionality of the SearchPlayersAndTeamsFiFA21UltimateTeam API. In addition an error message was added to the `/team` route that will be shown when receiving an invalid key, and a new condition was added to the `AquireURLParameters` function to fix the error produced when the search parameter is not sent when calling the endpoint
 
 ## Operation
 
@@ -9,18 +9,13 @@ This commit purpose is to add the functionality of ordering the response informa
 
 
 ## Changes made compared to the previous one
-- `CreatePlayersTable` was modified to received the ordering value as a third list parameter
-- `"/team` route was modified to send an empty string when the `CreatePlayersTable` function is called
-- `"/api/v1/players"` route was modified to send a string with the order readed from the request when the `CreatePlayersTable` function is called
+- `Readme` file was completed with the explanation of the code functionality.
+- Error message was added to the `/team` route that will be shown when receiving an invalid key
+- New condition was added to the `AquireURLParameters` function to fix the error produced when the search parameter is not sent when calling the endpoint
 
 ## Files and Folders
 ### Modified files and folders
 
 #### - routes.py
-- `CreatePlayersTable` 
-  - The `function` receive a `list` data that must contain the value consulted in the first position, the consult type in the second condition (**"By Team** or **By Player**) and the ordering information `string` in the third position (**"asc** or **desc**).
-    - The `function` returns a `boolean` data that indicates if the table was created or not.
-  - `"/api/v1/players"` route was modified to route in order to send a string with the order readed from the request when the `CreatePlayersTable` function is called
-  - `"/team` route was modified to send an empty string when the `CreatePlayersTable` function is called
-  - `readInformation` function was modified so the API can read all the pages in API FUT 21
-  - `"/"` route was modified to delete old information and aquire new information reading the API FUT 21  
+- `AquireURLParameters` function was modified, if the parameter search is not received in the URL the returned value for `partial_player_name` will be an empty string, that will cause that the API response with all the players stored in the database.
+- `/team` route was modified to validate if the `POST method request` used brings the valid keys `"Name"` and `"Page"`

@@ -118,6 +118,7 @@ def FindMaxValue(value):
 
 def AquireURLParameters():
     partial_player_name = request.args.get("search")
+    if partial_player_name == None: partial_player_name = ""
     search_order = request.args.get("order")
     if search_order != "asc" and search_order != "desc": search_order = "asc"    
     search_page = request.args.get("page")
@@ -143,16 +144,19 @@ def index():
 @app.route("/team", methods=["POST"])
 def team():
     request_json_data = request.json
-    team_name = request_json_data["Name"]
-    page_number = request_json_data["Page"]
-    team_found = CreatePlayersTable([team_name, "By Team", ""])
-    players_found = FindPlayersByPage(page_number)
-    player_response = {}    
-    if team_found:
-        player_response = CreatePlayersResponse([players_found,page_number,"By Team"])
-        return jsonify(player_response)
+    if 'Name' in request_json_data and 'Page' in request_json_data:
+        team_name = request_json_data["Name"]
+        page_number = request_json_data["Page"]
+        team_found = CreatePlayersTable([team_name, "By Team", ""])
+        players_found = FindPlayersByPage(page_number)
+        player_response = {}    
+        if team_found:
+            player_response = CreatePlayersResponse([players_found,page_number,"By Team"])
+            return jsonify(player_response)
+        else:
+            return jsonify({'response':400,'Search':"Failed",'error':"Team Not found"})
     else:
-        return jsonify({'response':400,'Search':"Failed",'error':"Team Not found"})   
+        return jsonify({'response':400,'Update':"Failed",'error':"Invalid Key"})   
 
 @app.route("/api/v1/players", methods=["GET"])
 def SearchPlayers():
@@ -165,7 +169,7 @@ def SearchPlayers():
         player_response = CreatePlayersResponse([players_found,page_number,"By Player"])
         return jsonify(player_response)
     else:
-        return jsonify({'response':400,'Search':"Failed",'error':"Team Not found"}) 
+        return jsonify({'response':400,'Search':"Failed",'error':"Player Not found"}) 
 
 
 
